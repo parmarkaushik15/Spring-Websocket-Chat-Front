@@ -22,6 +22,9 @@ a:hover{
     text-align: center;
    
 }
+ul.dropdown-menu.dropdown-menu-right li {
+    padding-left: 15px;
+}
 .chat-header{
     height: 60px;
 }
