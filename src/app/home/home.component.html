@@ -5,27 +5,18 @@
       <div class="row">
         <div class="chat-left">
           <div class="chat-header">
-            <p>Username</p>
+            <p>Conversations</p>
           </div>
           <div class="chat-users">
               <ul class="chat-list">
-                <li>
-                  <a>User 1</a>
-                  
-                </li>
-                <li>
-                    <a>User 2</a>
+               
+                  <li (click)="selectUser(user)" *ngFor="let user of users" [ngClass]="user.userName == currentUser.userName?'hide':''">
+                    <a>{{user.userFullName}}</a>
                     <span class="counter">
                         2
-                      </span>
+                    </span>
                   </li>
-                  <li>
-                      <a>User 3</a>
-                      <span class="counter">
-                        2
-                      </span>
-                    </li>
-
+               
               </ul>
           </div>
         </div>
@@ -36,93 +27,45 @@
         <div class="chat-right">
           <div class="chat-header">
             <p class="chat-user-name">
-              
-              Username</p>
-            <p class="chat-user-status">Online</p>
+              {{selectedToUser.userFullName}}</p>
+            <p class="chat-user-status">See Profile</p>
           </div>
-          <div class="chat-body">
+          <div class="chat-body" id="messageArea">
             <ul class="chat-list">
-              <li>
-                  <div class="media chat-msg-left">
-                    <div class="media-left">
+              <li *ngFor="let message of messages">
+                  <div class="media " [ngClass]="message.messageFrom == currentUser.userName?'chat-msg-right':'chat-msg-left'">
+                    <div class="media-left" *ngIf="message.messageFrom != currentUser.userName">
                       <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
                     </div>
                     <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                      {{message.messageContent}}
                     </div>
-                  </div>
-              </li>
-              <li>
-                  <div class="media chat-msg-right">
-                    
-                    <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </div>
-                    <div class="media-right">
+                    <div class="media-right" *ngIf="message.messageFrom == currentUser.userName">
                         <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
-                      </div>
-                  </div>
-              </li>
-              <li>
-                  <div class="media chat-msg-left">
-                    <div class="media-left">
-                      <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
-                    </div>
-                    <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </div>
                   </div>
               </li>
-              <li>
-                  <div class="media chat-msg-right">
-                    
-                    <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </div>
-                    <div class="media-right ">
-                        <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
-                      </div>
-                  </div>
-              </li>
-              <li>
-                  <div class="media chat-msg-left">
-                    <div class="media-left">
-                      <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
-                    </div>
-                    <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </div>
-                  </div>
-              </li>
-              <li>
-                  <div class="media chat-msg-left">
-                    <div class="media-left">
-                      <img src="https://www.w3schools.com/bootstrap/img_avatar1.png" class="media-object" style="width:30px">
-                    </div>
-                    <div class="media-body arrow_box">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    </div>
-                  </div>
-              </li>
+              
             </ul>
           </div>
           <div class="chat-footer">
             <div class="row">
               <div class="col-md-10 pr0">
                 <div class="input-group">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" [(ngModel)] = "message.messageContent">
                   <div class="input-group-btn dropup">
                      
                       <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
                         <i class="fa fa-cog"></i> <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-right" role="menu">
+							            <li><b>Pressing Enter Key Will:</b></li>
                           <li>
                             <div class="radio">
-                              <label><input type="radio" name="optradio">Option 1</label>
+                              <label><input type="radio" name="optradio">Send Message</label>
                             </div>
                             <div class="radio">
-                              <label><input type="radio" name="optradio">Option 2</label>
+                              <label><input type="radio" name="optradio">Add a line Break</label>
                             </div>
                           </li>
                           
@@ -131,7 +74,7 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <button class="btn btn-info">Send</button>
+                <button class="btn btn-info" (click)="sendMessage()">Send</button>
               </div>
             </div>
           </div>

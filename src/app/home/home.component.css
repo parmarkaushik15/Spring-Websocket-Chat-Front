@@ -109,3 +109,6 @@ ul.chat-list li a{
     border-width: 36px;
     margin-top: -36px;
 }
+.dropdown-menu{
+		min-width: 250px;
+}

@@ -6,13 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: "/login", pathMatch: 'full' },
   { path: 'login', component: LoginComponent }, 
   { path: 'home', component: HomeComponent }, 
 ]
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
